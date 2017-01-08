@@ -1,4 +1,4 @@
-package com.github.edipermadi.bohpien.service.grpc;
+package com.github.edipermadi.bohpien.service.grpc.types;
 
 import com.github.edipermadi.bohpien.api.Digest;
 
@@ -7,7 +7,7 @@ import com.github.edipermadi.bohpien.api.Digest;
  *
  * @author Edi Permadi
  */
-enum DigestMechanismEnum {
+public enum DigestMechanismEnum {
     MD2(Digest.DigestMechanism.MD2, "MD2"),
     MD4(Digest.DigestMechanism.MD4, "MD4"),
     MD5(Digest.DigestMechanism.MD5, "MD5"),
@@ -46,15 +46,15 @@ enum DigestMechanismEnum {
         this.algorithm = algorithm;
     }
 
-    Digest.DigestMechanism getMechanism() {
+    public Digest.DigestMechanism getMechanism() {
         return mechanism;
     }
 
-    String getAlgorithm() {
+    public String getAlgorithm() {
         return algorithm;
     }
 
-    static DigestMechanismEnum fromMechanism(final Digest.DigestMechanism mechanism) {
+    public static DigestMechanismEnum fromMechanism(final Digest.DigestMechanism mechanism) {
         for (final DigestMechanismEnum value : values()) {
             if (value.getMechanism().equals(mechanism)) {
                 return value;

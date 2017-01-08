@@ -52,6 +52,18 @@ public class DigestTest {
     }
 
     @Test(dependsOnMethods = {"testDigestInit"})
+    public void testDigestInfo() {
+        final Digest.DigestInfoRequest request = Digest.DigestInfoRequest.newBuilder()
+                .setSessionId(session)
+                .build();
+        final Digest.DigestInfoResponse response = client.digestInfo(request);
+        final Digest.DigestErrorCode errorCode = response.getErrorCode();
+        Assert.assertEquals(errorCode, Digest.DigestErrorCode.DIGEST_ERROR_NONE);
+        final Digest.DigestMechanism mechanism = response.getMechanism();
+        Reporter.log("using mechanism : " + mechanism.name(), true);
+    }
+
+    @Test(dependsOnMethods = {"testDigestInfo"})
     public void testDigestUpdate() {
         final Digest.DigestUpdateRequest request = Digest.DigestUpdateRequest.newBuilder()
                 .setSessionId(session)
@@ -64,8 +76,6 @@ public class DigestTest {
 
     @Test(dependsOnMethods = {"testDigestUpdate"})
     public void testDigestFinal() {
-        //
-
         final Digest.DigestFinalRequest request = Digest.DigestFinalRequest.newBuilder()
                 .setSessionId(session)
                 .build();
